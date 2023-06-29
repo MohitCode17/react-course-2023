@@ -1,0 +1,60 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 ALL ABOUT COMPONENTS 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 What is Components ?
+
+Components are one of the core concepts of React. They are the foundation upon which you build user interfaces (UI).
+
+Components are independent and reusable bits of code. They serve the same purpose as JavaScript functions, but work in isolation and return HTML called JSX.
+
+Example:-
+
+function Gallery() {
+    return (
+        ---- HTML code -----
+    )
+}
+
+
+👉 How to Define a Components and Reuse it:-
+
+Step-1 Define a component
+
+function Profile(){
+    return (
+        <h1>John Doe</h1>
+    )
+}
+
+
+Step-2 Export the component
+
+export default Profile;
+
+The export default prefix is a standard JavaScript syntax (not specific to React). It lets you mark the main function in a file so that you can later import it from other files.
+
+
+Step-3 Using a component( App.js file )
+
+First we'll import compoent, so that we can use.
+
+import Profile from './Profile'
+
+function App () {
+    return (
+        <Profile/>
+        <Profile/>
+        <Profile/>
+    )
+}
+
+
+
+👉 Note: 
+1. React components are regular JavaScript functions, but their names must start with a capital letter or they won’t work!
+2. Components can render other components, but you must never nest their definitions:
+
+function App(){
+    function Profile() {
+        ............ code here ............
+    }
+}
