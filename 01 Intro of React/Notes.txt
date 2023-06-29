@@ -1,0 +1,51 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 INTRODUCTION TO REACT 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 What is React ?
+
+React is a JavaScript library for rendering user interfaces (UI). It helps in building highly engaging single page applications.
+
+UI is built from small units like buttons, text, and images. React lets you combine them into reusable, nestable components. From web sites to phone apps, everything on the screen can be broken down into components.
+
+
+
+👉 Single Page Applications V/s Multipage Applications
+
+Single-page application also called SPA, is app that works inside a browser and does not require page reloading during use. Some of single page application that you are using every day. These are Gmail, Google-Maps, facebook or Github.
+
+SPAs are all about serving an outstanding UX by trying to imitate a "natural" environment in the browser - no page load, no extra wait time. It is just one web page that you visit which then loads all other content using JavaScript - which they heavily depends.
+
+Multiple-page applications work in a “traditional” way. Every change eg. display the data or submit data back to server requests rendering a new page from the server in the browser. These applications are large, bigger than SPAs because they need to be. Due to the amount of content, these applications have many levels of UI.
+
+
+
+👉 Why React ?
+
+1. Follows components based approach is one of the core of react. Every application you'll build in react made up of pieces called components.
+2. React is declarative not imperative.
+3. React has virtual DOM in-built, faster than real DOM.
+
+
+
+👉 Declarative V/s Imperative
+
+In Declarative programming, you describe WHAT you want to do, not specify HOW to get it done!
+
+Example:-
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<h1>This is declarative way of programming</h1>);
+
+In above example, we want to render heading, and we describe that to render a heading to root. But how to done it we don't mention. React will handle everything on its behalves.
+
+
+In Imperative programming, you describe WHAT you want, by speicifying all the INSTRUCTIONS on HOW to do it.
+
+- Create a new h1 element
+- Give it some textContent
+- Give it a class name of "header"
+- append it as a child of the div#root
+
+const heading = document.createElement('h1');
+heading.textContent = "This is imperative way of programming";
+heading.className = "heading"
+document.getElementById('root').appendChild(heading);
