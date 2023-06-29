@@ -1,0 +1,59 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 WRITE MARKUP WITH JSX 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 What is JSX ?
+
+JSX is a syntax extension for JavaScript that lets you write HTML-like markup inside a JavaScript file.
+
+
+Note: JSX and React are two separate things. They’re often used together, but you can use them independently of each other. JSX is a syntax extension, while React is a JavaScript library.
+
+
+👇 Take a look at the below code:-
+
+const jsx = <h1>This is JSX</h1>;
+
+This is simple JSX code in React. But the browser does not understand this JSX because it's not valid JavaScript code. This is because we're assigning an HTML tag to a variable that is not a string but just HTML code.
+So to convert it to browser understandable JavaScript code, we use a tool like 'Babel' which is a JavaScript compiler/transpiler.
+
+
+👉 Valid JS Expression in JSX
+
+With JSX you can write expressions inside { } curly brackets.
+Expression can be react variable, a valid javascript expression or any other valid property.
+
+Example: const myElement = <h1>React is {5 + 5} times better with JSX.</h1>
+
+
+👉 JSX follows some Rules
+
+1. Return a single root element
+
+To return multiple elements from a component, wrap them with a single parent tag.
+
+For example, you can use a <div> or ou can write <> and </> instead(This empty tag is called a Fragment):
+
+<div>
+
+    <h1>What makes React Special</h1>
+    <ul>
+        <li>Component Approach</li>
+        <li>Declarative Approach</li>
+    </ul>
+</div>
+
+
+2. Close all the tags 
+
+Always self-close empty element with like: <br/>, <input/>, <hr/> in HTML we define same elements like <br>, <input> etc.
+
+<img src="xyz.png" alt="xyz" />
+
+
+3. camelCase all most of the things!
+
+The names can’t contain dashes or be reserved words like class.
+
+background-color => backgroundColor
+font-size => fontSize
+
+Use 'className' instead of 'class'.
