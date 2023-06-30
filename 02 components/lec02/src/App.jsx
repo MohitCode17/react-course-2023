@@ -1,7 +1,7 @@
-import Gallery from "./Gallery";
+import Shop from "./Shop";
 
 export default function App() {
   return (
-    <Gallery/>
+    <Shop/>
   )
 };
