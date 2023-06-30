@@ -1,0 +1,94 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 WRITE MARKUP WITH JSX 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 What is Props ?
+
+We use props in React to pass data from one component to another (from a parent component to a child component). Props are information that you pass to JSX tag. They are useful when you want the flow of data in your app to be dynamic.
+
+Props might reminds you of HTML attributes, but you can pass any JavaScript value through them, including objects, arrays, and functions.
+
+Example:-
+
+function sum(){
+  return 3 + 4;
+}
+console.log(sum());
+
+This function is valid JavaScript function and return the sum of 3 and 4, but there is some problem with this function that we can't reuse of it, What does mean reuse ? It will always return sum of 3 and 4, Suppose I wanna sum 9 + 2 or with any other value. So we have to pass parameter.
+
+function sum(a, b){
+  return a + b;
+}
+console.log(9,2);
+
+like the parameters in function we have props(property) in react.
+
+
+👉 Passing props to a component
+
+In this code, the Shop component isn't passing any props to its child component, Book:
+
+function Shop() {
+    return (
+        <Book/>
+    )
+}
+
+Let's see how can we pass props to Book component.
+
+
+Step-1: Pass props to child component
+
+function Shop() {
+    return (
+        <Book coverImg="book.png" bookName="Think Straight" price={450} />
+    )
+}
+
+
+Step-2 Read props inside child component
+
+function Book({coverImg, bookName, price}) {
+    return (
+        <div>
+            <h1>{bookName}</h1>
+            <h5>{price}</h5>
+            <img src={coverImg} alt={bookName} />
+        </div>
+    )
+}
+
+1. Don't miss the pair of { } curlies inside of ( ) when declaring props.
+2. This syntax called "destructuring".
+
+
+💯Note: 
+Props are read-only, meaning that once they are passed to a component, their values cannot be modified by the component itselt.
+
+Let's understand with example why props are read-only:
+
+Suppose we have a parent component called "ParentComp" that renders a child component called "ChildComp". The parent component passes a props called 'message' to the child.
+
+ParentComp.jsx
+
+function ParentComp() {
+    const message = "Hello React!!"
+    return <ChildComp message={message} />
+}
+
+ChildComp.jsx
+
+function ChildComp({message}) {
+    return <div>{message}</div>
+}
+
+In this example, the 'ParentComp' creates a constant 'message' with some value. It passes this value to the 'ChildComp' as a prop named 'message'. The 'ChildComp' receives the prop and display within a 'div'.
+
+Now let's say we want to modify the 'message' props in ChildComp. Since props are read-only, we cannot directly change the value of 'message' inside the 'ChildComp'. Attemting to modify it directly will result in an error.
+
+function ChildComp({message}) {
+    message = "Change message"; // this will throw an error
+
+    return <div>{message}</div>
+};
+
+React intentionally prevents modifying props within a component to maintain a clear and predictable flow of data.
