@@ -1,0 +1,61 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 CONDITIONAL RENDERING 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 What is Conditional Rendering ?
+
+Your components will often need to display different things depending on different conditions. In React, you can conditionally render JSX using JavaScript syntax like if statements, &&, and ? : operators.
+
+Example:-
+
+Let’s say you have a Shop component rendering several Books, you have to show badge as Sold Out if quantity is 0:
+
+- Shop.jsx
+
+function Shop() {
+  return (
+    <Book 
+      bookTitle="Think Straight: Change your thoughts, Change your life." 
+      price={230}
+      totalQty={0}
+    />
+    <Book 
+      bookTitle="The Hidden Hindu Book 3"
+      price={390}
+      totalQty={10}
+    />
+  )
+}
+
+Notice that some of the Book components have their totalQty prop set to number as 0 or 10. You want to add a badge SOLD OUT to book items if totalQty={0}.
+
+
+- Book.jsx
+
+const Book = ({price, bookTitle, totalQty}) => {
+    return (
+      <div>
+        <h2>{bookTitle}</h2>
+        <p>{price}</p>
+
+        {totalQty === 0 && <div className="badge">SOLD OUT</div>}
+      </div>
+    )
+}
+
+As you see above code this "<div>SOLD OUT</div>" will only work if totalQty will be exactly equals to 0.
+
+Logical AND operator (&&): It often comes up when you want to render some JSX when the condition is true, or render nothing otherwise.
+
+Suppose if totalQty is anything but more than 0, and you want to show some other badge like BUY NOW, then you can use ternary operator (? :).
+
+- Book.jsx
+
+const Book = ({price, bookTitle, totalQty}) => {
+    return (
+      <div>
+        <h2>{bookTitle}</h2>
+        <p>{price}</p>
+
+        {totalQty === 0 ? <div className="badge">SOLD OUT</div> : <div className="badge">BUY NOW</div>}
+      </div>
+    )
+}
