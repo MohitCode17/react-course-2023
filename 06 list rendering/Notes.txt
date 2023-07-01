@@ -1,0 +1,28 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 LIST RENDERING 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 Rendering List
+
+You will often want to display multiple similar components from a collection of data. You can use the JavaScript array methods to manipulate an array of data. We use the map() function to iterate over the list and render the results.
+
+keys help identify what item from the list has changed to inform React to re-render. ReactJS gives a warning if you forget to mention the keys for a list.
+
+
+Example of Map:-
+
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map((number) => number * 2);
+console.log(doubled);
+
+
+👉 Rendering Multiple Components
+
+Below, we loop through the numbers array using the JavaScript map() function. We return a <li> element for each item. Finally, we assign the resulting array of elements to listItems:
+
+const numbers = [1, 2, 3, 4, 5];
+const listItems = numbers.map((number) =>
+  <li>{number}</li>
+);
+
+Then, we can include the entire listItems array inside a <ul> element:
+
+<ul>{listItems}</ul>

@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: #f6f6f6;
+}
+
+.content{
+    width: 1024px;
+    margin: 0 auto;
+    display: flex;
+    padding: 1rem;
+    gap: 4rem;
+}
+
+.right .title{
+    font-weight: 400;
+    font-size: 1.3rem;
+}
+
+.right .author{
+    color: teal;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#author{
+    margin-bottom: 1rem;
+}
+
+.right .price{
+    font-size: 2rem;
+}
+
+.badge{
+    background-color: orange;
+    width: fit-content;
+    padding: 0.3rem 0.8rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
