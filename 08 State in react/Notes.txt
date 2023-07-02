@@ -1,0 +1,211 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 STATE: A COMPONENT'S MEMORY 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+Components often need to change what’s on the screen as a result of an interaction. Typing into the form should update the input field, clicking “next” on an image carousel should change which image is displayed.
+
+Components need to “remember” things: the current input value, the current image. In React, this kind of component-specific memory is called state.
+
+
+👉 When a regular variable isn’t enough :-
+
+Here’s a component that renders a count. Clicking the “+” and “-” button should increase the value of count by 1 and decrease the value of count by 1. However, this won’t work:
+
+const App = () => {
+  let count = 0;
+
+  const decreaseCount = () => {
+    count = count - 1;
+  };
+
+  const increaseCount = () => {
+    count = count + 1;
+  };
+
+  return (
+    <div className="counter">
+      <button className="counter--minus" onClick={decreaseCount} >-</button>
+      <div className="counter--count">
+        <h1>{count}</h1>
+      </div>
+      <button className="counter--plus" onClick={increaseCount} >+</button>
+    </div>
+  )
+}
+
+The "decreaseCount" and "increaseCount" event handler is updating a local variable, count. But two things prevent that change from being visible:
+
+➡️ Local variables don’t persist between renders. When React renders this component a second time, it renders it from scratch—it doesn’t consider any changes to the local variables.
+
+➡️ Changes to local variables won’t trigger renders. React doesn’t realize it needs to render the component again with the new data.
+
+
+To update a component with new data, two things need to happen:
+
+1. Retain the data between renders.
+2. Trigger React to render the component with new data (re-rendering).
+
+
+The useState Hook provides those two things:
+
+1. A state variable to retain the data between renders.
+2. A state setter function to update the variable and trigger React to render the component again.
+
+
+👉 Adding a state variable:-
+
+To add a state variable, import useState from React at the top of the file:
+
+import { useState } from 'react';
+
+Then, replace this line:
+
+let count = 0;
+with
+
+const [count, setCount] = useState(0);
+
+count is a state variable and setCount is the setter function.
+
+The [ and ] syntax here is called array destructuring and it lets you read values from an array. The array returned by useState always has exactly two items.
+
+This is how they work together in increaseCount or decreaseCount:
+
+function increaseCount() {
+  setCount(count + 1);
+}
+
+function decreaseCount() {
+  setCount(count - 1);
+}
+
+
+👉 Your first Hook (useState)
+
+In React, useState, as well as any other function starting with ”use”, is called a Hook.
+
+Hooks are special functions that are only available while React is rendering. They let you “hook into” different React features.
+
+State is just one of those features.
+
+
+👉 Props v/s State
+
+"Props" refers to the properties being passed into a component in order for it to work correctly, similar to how a function receives parameters: "from above." A component receiving props is not allowed to modify those props. (i.e they are "immutable.")
+
+function Navbar(props){
+  prosp.coverImage = "something else" // Don't do this
+}
+<Navbar coverImage="some-image" />
+
+
+"State" refers to values that are managed by the component, similar to variables declared inside a function. Any time you have changing values that should be saved/displayed, you'll likely be using state.
+
+
+
+
+
+👉 Updating Arrays in State
+
+Arrays are mutable in JavaScript, but you should treat them as immutable when you store them in state. Just like with objects, when you want to update an array stored in state, you need to create a new one (or make a copy of an existing one), and then set state to use the new array.
+
+In JavaScript, arrays are just another kind of object. Like with objects, you should treat arrays in React state as read-only. This means that you shouldn’t reassign items inside an array like arr[0] = 'bird', and you also shouldn’t use methods that mutate the array, such as push() and pop().
+
+Instead, every time you want to update an array, you’ll want to pass a new array to your state setting function.
+
+Here is a reference table of common array operations. When dealing with arrays inside React state:
+
+	            avoid (mutates the array)	            prefer (returns a new array)
+adding:	      push, unshift	                        concat, [...arr] spread syntax
+removing:	    pop, shift, splice	                  filter, slice
+replacing:	  splice, arr[i] = ... assignment	      map
+sorting:	    reverse, sort	                        copy the array first
+
+
+Example-2 Add Items:-
+
+function App() {
+  const thingsArray = ["Thing 1", "Thing 2"];
+
+  /**
+   * Challenge: Map over the thingsArray to generate
+   * a <p> element for each item and render them on the page
+   * below the button
+   */
+
+  return (
+    <div>
+      <button>Add Item</button>
+      {/* Insert the things here*/}
+    </div>
+  );
+}
+
+
+
+function App() {
+  const thingsArray = ["Thing 1", "Thing 2"];
+
+  /**
+   * Challenge02: Add an event listener to the button so when
+   * it is clicked, it adds another thing to our array
+   *
+   * Hint: use the array length + 1 to determine the number
+   * of the "Thing" being added. Also, have you event listener
+   * console.log(thingsArray) after adding the new item to the
+   * array
+   *
+   * Spoiler: the page won't update when new things get added
+   * to the array!
+   */
+
+  const things = thingsArray.map((thing) => <p key={thing}>{thing}</p>);
+
+
+  const handleAddThings = () => {
+    let newThings = `Thing ${thingsArray.length + 1}`
+    thingsArray.push(newThings);
+    console.log(newThings);
+  }
+
+  return (
+    <div>
+      <button onClick={handleAddThings}>Add Item</button>
+      {/* Insert the things here*/}
+      {things}
+    </div>
+  );
+}
+
+
+
+function App () {
+  /**
+    * Challenge03: Convert the code below to use an array
+    * held in state instead of a local variable. Initialize 
+    * the state array with the same 2 items below
+    * 
+    * Don't worry about fixing `handleAddThings` quite yet.
+  */
+  
+  const thingsArray = ["Thing 1", "Thing 2"]
+  
+  const handleAddThings = () => {
+    let newThings = `Thing ${thingsArray.length + 1}`
+    thingsArray.push(newThings);
+    console.log(newThings);
+  }
+    
+  const things = thingsArray.map((thing) => <p key={thing}>{thing}</p>);
+  
+  return (
+    <div>
+      <button onClick={handleAddThings}>Add Item</button>
+      {things}
+    </div>
+  )
+}
+
+
+
+👉 Updating Objects in State
+
+State can hold any kind of JavaScript value, including objects. But you shouldn’t change objects that you hold in the React state directly. Instead, when you want to update an object, you need to create a new one (or make a copy of an existing one), and then set the state to use that copy.
