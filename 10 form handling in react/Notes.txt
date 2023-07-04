@@ -1,0 +1,239 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 FORM HANDLING IN REACT 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+Forms play an essential role in modern web applications. They enable users to share information, complete tasks and provide feedback.
+
+Without forms, many of the tasks that we take for granted on the web, such as logging in, signing up, or making purchases, would not be possible.
+
+
+👉 In React, there are two ways of handling form data:
+
+1. Controlled Components: In this approach, form data is handled by React through the use of hooks such as the 'useState' hook.
+
+2. Uncontrolled Components: Form data is handled by the Document Object Model (DOM) rather than by React. The DOM maintains the state of form data and updates it based on user input.
+
+
+To better understand the difference between controlled and uncontrolled components, consider there are two ways of riding a bike.
+
+In the first approach, you let the bike take control. You sit on the bike and let it decide the direction and speed. You might try to make it go in a certain direction by leaning your body, but ultimately, the bike decides where to go.
+
+This is similar to uncontrolled components in React. You place a form element in the component, and the DOM takes control of it. The DOM decides the state of the input element and updates it based on a user's input.
+
+In the second approach, you take control of the bike. You hold the handlebars and pedal, and you decide where to go and how fast to ride. You can easily slow down or speed up as needed.
+
+This is similar to controlled components where a React component takes control of the form data, and maintains the state of form elements. The component decides when and how to update the state, and it re-renders itself based on the state changes.
+
+
+👉 Controlled Components in React
+
+In React, a controlled component is a component where form elements derive their value from a React state.
+
+When a component is controlled, the value of form elements is stored in a state, and any changes made to the value are immediately reflected in the state.
+
+To create a controlled component, you need to use the 'value' prop to set the value of form elements and the 'onChange' event to handle changes made to the value.
+
+The 'value' prop sets the initial value of a form element, while the 'onChange' event is triggered whenever the value of a form element changes. Inside the onChange event, you need to update the state with the new value using a state update function.
+
+
+Example:-
+
+function App() {
+
+  const [name, setName] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Welcome ${name}!`);
+  }
+
+  const handleChange = (e) => {
+    setName(e.target.value);
+  }
+
+  return (
+    <div className="container">
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Enter your name" value={name} onChange={handleChange} />
+        <button type="submit">Submit</button>
+      </form>
+    </div>   
+  )
+}
+
+
+In this example:
+
+The useState hook defines a state variable (name) and a state update function (setName).
+
+The value prop sets the initial value of the input element to the value of 'name'.
+
+Also, the onChange event handles changes made to the input value. The handleChange function updates the setName state with the new value of the input element, and the updated value is immediately reflected in the state.
+
+
+👉 How to handle multiple form fields
+
+When working with forms in React, it's common to have several form elements, such as text inputs, checkboxes, radio buttons, and others.
+
+To manage the state of these form elements, you can define the values for the input fields as an object using a single state variable and update each respective state variable using the onChange event.
+
+As an example, suppose you wish to create a form with the following fields:
+
+Text input for the user's name
+An email field for the user's email
+A textarea field for the user's message
+Here's how you could handle these fields:
+
+
+Example:-
+
+const initialData = {
+  name: "",
+  email: "",
+  message: "",
+}
+
+function App() {
+  const [data, setData] = useState(initialData);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(!data.name || !data.email) {
+      alert('Please fill the details');
+      return;
+    }
+    alert(`Welcome ${data.name}!`);
+    alert(`Please verify your email: ${data.email}`)
+    console.log(data);
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData(prevData => ({...prevData, [name] : value }));
+  }
+
+  return (
+    <div className="container">
+      <form onSubmit={handleSubmit}>
+        <input type="text" placeholder="Enter your name" name="name" value={data.name} onChange={handleChange} />
+        <input type="email" placeholder="Enter your email" name="email" value={data.email} onChange={handleChange} />
+        <textarea name="message" id="message" rows="5" placeholder="Write your message" onChange={handleChange} value={data.message} ></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>    
+  )
+}
+
+The setData function uses the spread operator (...) to copy the previous 'data' object. Then it updates the value of the changed form field by setting its value prop with the new value.
+
+By using an object to manage form data, we can easily keep track of the values of multiple form elements. This makes it easier to manage and manipulate the state of our form data, especially when dealing with complex forms with many form elements.
+
+
+👉 How to handle checkboxes and radio input field
+
+Just like with input elements, the value of a dropdown can be set by using the value prop in conjunction with the onChange event handle to update the state of the component.
+
+Example:-
+
+const initialData = {
+  name: "",
+  email: "",
+  message: "",
+  employment: "",
+  isFriendly: true,
+};
+
+function App() {
+  const [data, setData] = useState(initialData);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!data.name || !data.email) {
+      alert("Please fill the details");
+      return;
+    }
+    alert(`Welcome ${data.name}!`);
+    alert(`Please verify your email: ${data.email}`);
+    console.log(data);
+  };
+
+  const handleChange = (e) => {
+    const { name, value, checked, type } = e.target;
+    setData((prevData) => ({ ...prevData, [name]: type === "checkbox" ? checked : value }));
+  };
+
+  return (
+    <div className="container">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter your name"
+          onChange={handleChange}
+          name="name"
+          value={data.name}
+        />
+        <input
+          type="email"
+          placeholder="Enter your email"
+          onChange={handleChange}
+          name="email"
+          value={data.email}
+        />
+        <fieldset>
+          <legend>Current employment status</legend>
+          <input
+            type="radio"
+            id="unemployed"
+            name="employment"
+            value="unemployed"
+            checked={data.employment === "unemployed"}
+            onChange={handleChange}
+          />
+          <label htmlFor="unemployed">Unemployed</label>
+          <br />
+
+          <input
+            type="radio"
+            id="part-time"
+            name="employment"
+            value="part-time"
+            checked={data.employment === "part-time"}
+            onChange={handleChange}
+          />
+          <label htmlFor="part-time">Part-time</label>
+          <br />
+
+          <input
+            type="radio"
+            id="full-time"
+            name="employment"
+            value="full-time"
+            checked={data.employment === "full-time"}
+            onChange={handleChange}
+          />
+          <label htmlFor="full-time">Full-time</label>
+          <br />
+        </fieldset>
+
+        <div style={{ display: "flex", gap: "0.5rem" }}>
+          <label htmlFor="isFriendly">Are you Friendly</label>
+          <input
+            type="checkbox"
+            name="isFriendly"
+            id="isFriendly"
+            onChange={handleChange}
+            checked={data.isFriendly}
+          />
+        </div>
+
+        <textarea
+          name="message"
+          id="message"
+          rows="3"
+          placeholder="Write your message"
+          onChange={handleChange}
+          value={data.message}
+        ></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  );
+}
