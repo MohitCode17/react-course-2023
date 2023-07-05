@@ -1,0 +1,43 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 GUIDE TO USEEFFECT HOOK 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 What is useEffect ?
+
+The useEffect Hook allows you to perform side effects in your components.
+
+👉 What exactly is an "effect" ?
+
+The word effect refers to a functional programming term called a "side effect". But to really understand what a side effect is, we first have to grasp the concept of a pure function.
+
+You may not know this, most React components are intended to be pure functions. It may be strange to think about React components as functions, but they are.
+
+Most React components are pure functions, meaning they receive an input and produce a predictable output of JSX. The input to a JavaScript function is arguments. What is the input to a React component, however? Props!
+
+Here we have a User component that has the prop name declared on it. Within User, the prop value is displayed in a header element.
+
+export default function App() {
+  return <User name="John Doe" />   
+}
+  
+function User({name}) {
+  return <h1>{name}</h1>; // John Doe
+}
+
+This is pure because, given the same input, it will always return the same output. If we pass User a name prop with value "John Doe", our output will always be John Doe.
+
+Pure functions have the great benefit of being predictable, reliable, and easy to test. This is as compared to when we need to perform a side effect in our component.
+
+
+👉 What are side effects in React ?
+
+Side effects are not predictable because they are actions which are performed with the "outside world."
+
+We perform a side effect when we need to reach outside of our React components to do something. Performing a side effect, however, will not give us a predictable result.
+
+
+Common side effects include:
+
+➡️ Making a request to an API for data from a backend server
+➡️ To interact with browser APIs (that is, to use document or window directly)
+➡️ Using unpredictable timing functions like setTimeout or setInterval
+
+This is why useEffect exists: to provide a way to handle performing these side effects in what are otherwise pure React components.
