@@ -1,0 +1,13 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 GUIDE TO USEREF HOOK 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 What is Prop Drilling ?
+
+Prop drilling occurs when a parent component passes data down to its children and then those children pass the same data down to their own children. This process can continue indefinitely. At the end, it's a long chain of component dependencies that can be difficult to manage and maintain.
+
+👉 The Problems with Prop Drilling
+
+Prop drilling can lead to several issues in your codebase, let's bring it on surface:
+
+1. Code Duplication
+2. Increase the cognitive load on developers who need to understand and navigate the component hierarchy
+3. Decreased Maintainability
