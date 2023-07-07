@@ -1,0 +1,117 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 GUIDE TO USEREF HOOK 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 What is useRef ?
+
+React.useRef() hook to create persisted mutable values (also known as references or refs), as well as we can directly modify and access DOM elements.
+
+1. Mutable values
+
+useRef(initialValue) is a built-in React hook that accepts one argument as the initial value and returns a reference (aka ref). A reference is an object having a special property current.
+
+function MyComponent() {
+  const initialValue = 0;
+  const reference = useRef(initialValue);
+
+  const someHandler = () => {
+    // Access reference value:
+    const value = reference.current;
+
+    // Update reference value:
+    reference.current = newValue;
+  };
+}
+
+reference.current accesses the reference value, and reference.current = newValue updates the reference value. Pretty simple.
+
+
+There are 2 rules to remember about references:
+
+1. The value of the reference is persisted (remains unchanged) between component re-renderings;
+2. Updating a reference doesn't trigger a component re-rendering.
+
+
+
+1.1 Use case: logging button clicks
+
+The component LogButtonClicks uses a reference to store the number of clicks on a button:
+
+const LogButtonClicks = () => {
+  const countRef = useRef(0);
+  
+  const handle = () => {
+    countRef.current++;
+    console.log(`Clicked ${countRef.current} times`);
+  };
+
+  console.log('I rendered!');
+
+  return <button onClick={handle}>Click me</button>;
+}
+
+When the button is clicked, handle callback is invoked and the reference value is incremented: countRef.current++. Then the reference value is logged to the console.
+
+Updating the reference value countRef.current++ doesn't trigger component re-rendering. This is demonstrated by the fact that 'I rendered!' is logged to the console just once, at initial rendering, and no re-rendering happens when the reference is updated.
+
+
+👉 what's the main difference between reference and state ?
+
+Reference and state diff:-
+
+Let's reuse the component LogButtonClicks from the previous section, but this time use useState() hook to count the number of button clicks:
+
+const LoginButtonClick = () => {
+  const [count, setCount] = useState(0);
+
+  const handleCount = () => {
+    let updateCount = count + 1;
+    console.log(`Clicked ${updateCount} times`);
+    setCount(updateCount);
+  };
+
+  console.log("I rendered!");
+
+  return <button onClick={handleCount}>Click me</button>;
+};
+
+Each time you click button, you will see in the console the message 'I rendered!' — meaning that each time the state is updated, the component re-renders.
+
+So, the 2 main differences between reference and state:
+
+Updating a reference doesn't trigger re-rendering, while updating the state makes the component re-render;
+The reference update is synchronous (the updated reference value is available right away), while the state update is asynchronous (the state variable is updated after re-rendering).
+
+
+
+
+2. Accessing DOM elements
+
+Another useful application of the useRef() hook is to access DOM elements directly.
+
+2.1 Use case: focusing on an input
+
+You would need to access DOM elements, for example, to focus on the input field when the component mounts.
+
+To make it work you'll need to create a reference to the input, assign the reference to ref attribute of the tag, and after mounting call the special method element.focus() on the element.
+
+const InputFocus = () => {
+  const focusRef = useRef();
+  const [name, setName] = useState("Mohit");
+
+  const resetInputValue = () => {
+    setName("");
+    focusRef.current.focus();
+  };
+
+  console.log("I am render from input focus component");
+  return (
+    <div>
+      <input
+        ref={focusRef}
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <button onClick={resetInputValue}>Reset</button>
+    </div>
+  );
+};
