@@ -1,0 +1,90 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 USECALLBACK HOOK GUIDE 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 The useCallback hook in React
+
+useCallback is one of the new features introduced in the react hooks API. Personally the name is quite confusing because callback is usually referred to asynchronous functions, the function that we invoke whenever a certain operation has finished. useCallback however is used for a different purpose.
+
+So what does it do? According to React official docs, it Returns a memoized callback. In simpler words, it returns a cached version of a function. Basically this hook is mainly use for performance reason (memory-wise).
+
+
+How does it do that? lets see an example:
+
+// App.jsx
+
+const App = () => {
+  
+  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+
+  const increment = () => {
+    setCount(count + 1);
+  }
+
+  const addTodos = () => {
+    setTodos(prev => [...prev, `new Todo`]);
+  }
+
+  return (
+    <>
+      <Todos todos={todos} addTodos={addTodos} />
+      <hr />
+      <div>
+        <h2>Count: {count}</h2>
+        <button onClick={increment}>+</button>
+      </div>
+    </>
+  )
+}
+
+In this example we created count variable which will be increment on click of button, same with todos variable which initially is empty array and addTodos function will set new todo in our array.
+We passed addTodos and todos as props in Todos component.
+
+// Todos.jsx
+
+const Todos = ({todos, addTodos}) => {
+    console.log('Render todos component');
+  return (
+    <div>
+        <h2>My Todos</h2>
+        {todos.map((todo, index) => (
+            <p key={index}>{todo + " " + index}</p>
+        ))}
+        <button onClick={addTodos}>Add todo</button>
+    </div>
+  )
+}
+
+In this Todos component we map through the todos array and on click of button addTodos function will be work.
+
+So, when we click on button which exist in Todos component, new todo has been created and push inside todos array which are in App component. So when state changed our App component will be re-render and console the message which is in Todos component. which is perfect scenario.
+
+So what happen in this scenario? everything is works perfectly but no! There is something which you need to understand. If we click button which is exists in App component to increment the count variable, which may not inpact on todos state but if we click on button to increment the count, console message is still printing.
+
+But we don't need to run Todos component when we click on button to increment count, If we use usememo this will bot going to work because it returns only memoized value not memoized function. In out case addTodos works as memoized function which we want to be execute only if we change in Todo component.
+
+In this case we can use useCallback:-
+
+const App = () => {
+  
+  const [count, setCount] = useState(0);
+  const [todos, setTodos] = useState([]);
+
+  const increment = () => {
+    setCount(count + 1);
+  }
+
+  const addTodos = useCallback(() => {
+    setTodos(prev => [...prev, `new Todo`]);
+  }, [todos]);
+
+  return (
+    <>
+      <Todos todos={todos} addTodos={addTodos} />
+      <hr />
+      <div>
+        <h2>Count: {count}</h2>
+        <button onClick={increment}>+</button>
+      </div>
+    </>
+  )
+}
