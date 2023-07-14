@@ -1,0 +1,199 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 REACT ROUTER V6 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 React as a Single Page Application (SPA)
+
+You need to understand how pages are rendered in a React app before diving into routing.
+
+In non-single page applications, when you click on a link in the browser, a request is sent to the server before the HTML page gets rendered.
+
+In React, the page contents are created from our components. So what React Router does is intercept the request being sent to the server and then injects the contents dynamically from the components we have created.
+
+This is the general idea behind SPAs which allows content to be rendered faster without the page being refreshed.
+
+When you create a new project, you'll always see an index.html file in the public folder. All the code you write in your App component which acts as the root component gets rendered to this HTML file. This means that there is only one HTML file where your code will be rendered to.
+
+What happens when you have a different component you would prefer to render as a different page? Do you create a new HTML file? The answer is no. React Router – like the name implies – helps you route to/navigate to and render your new component in the index.html file.
+
+So as a single page application, when you navigate to a new component using React Router, the index.html will be rewritten with the component's logic.
+
+
+👉 How to Install React Router
+
+To install React Router, all you have to do is run npm install react-router-dom@6 in your project terminal and then wait for the installation to complete.
+
+If you are using yarn then use this command: yarn add react-router-dom@6.
+
+
+👉 Connect the URL
+
+First we connect our app to browser's URL, To do we need to first import BrowserRouter and render it around our whole app, basically we wrap it inside our index.js(for CRA) or main.js(for Vite) file.
+
+import { BrowserRouter } from 'react-router-dom'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+)
+
+
+👉 How to Route to Other Components
+
+We are finally done setting things up, so now we'll look at routing to and rendering different components. We first imported the features we'll be using – Routes and Route. After that, we imported all the components we needed to attach a route to.
+
+
+Step-1: Define Route
+
+const App = () => {
+  return (
+    <>
+      <Navbar/>
+      <Routes>
+        <Route path='/' element={<Home/>} />
+        <Route path='about' element={<About/>} />
+        <Route path='contact' element={<Contact/>} />
+      </Routes>
+    </>
+  )
+}
+
+Route is used to create a single route. It takes in two attributes:
+
+"path", which specifies the URL path of the desired component. You can call this pathname whatever you want. Above, you'll notice that the first pathname is a backslash (/). Any component whose pathname is a backslash will get rendered first whenever the app loads for the first time.
+
+"element", which specifies the component the route should render.
+
+
+// Navbar.jsx (Navbar for navigate route)
+
+const Navbar = () => {
+  return (
+    <div>
+        <h2>ReactRouter</h2>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </div>
+  )
+}
+
+
+Step-2: Use Link to navigate to routes
+
+If you run the above code, you'll see our home, about and contact page reload while navigate. We will now see how to navigate the above page without reloading the page.
+
+const Navbar = () => {
+  return (
+    <div>
+        <h2>ReactRouter</h2>
+        <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+        </ul>
+    </div>
+  )
+}
+
+
+👉 NavLink V/S Link
+
+NavLink is similar to Link, but it has the ability to add additional styling attributes to the element. For example, you can use NavLink to style the active link differently than the other links. NavLink utilizes the "activeClassName" attribute. This is the class that will be applied to the element when it is active.
+
+
+
+👉 Routing to Error 404 Page
+
+When there is no specific path that user wants to visit, we show error 404 page. To specifying the error 404 path use an asterisk (*) symbol.
+
+const App = () => {
+  return (
+    <div className='container'>
+      <Navbar/>
+      <Routes>
+        <Route path='/' element={<Home/>} />
+        <Route path='about' element={<About/>} />
+        <Route path='contact' element={<Contact/>} />
+        <Route path='*' element={<Error/>} />
+      </Routes>
+    </div>
+  )
+}
+
+
+
+👉 Nested Routing
+
+React Router version 6 makes it easy to nest routes. Nested routes enables you to have multiple components render on the same page with route parity. This is useful for app experiences where you want the user to be able to "drill down" into content and not lose their way.
+
+Ex: www.youtube.com/videos/1234/comments
+
+const App = () => {
+  return (
+    <div className='container'>
+      <Navbar/>
+      <Routes>
+        <Route path='/' element={<Home/>}>
+          <Route path='about' element={<About/>} />
+          <Route path='contact' element={<Contact/>} />
+          <Route path='*' element={<Error/>} />
+        </Route>
+      </Routes>
+    </div>
+  )
+}
+
+Like you want to go about page, first you need to follow the home component path.
+
+
+👉 Nesting routes with <Outlet/>
+
+<Outlet /> behaves a bit like props.children in standard React. <Outlet /> is the placeholder location for where the nested children routes will be rendered.
+
+const Home = () => {
+  return (
+    <>
+      <Navbar/>
+      <Outlet/>
+    </>
+  )
+}
+
+
+👉 useNavigate Hook
+
+useNavigate is a new hook introduced in React Router v6 and it is extremely useful and easy to use.
+
+Uses:
+1. Go to the previous or next pages
+2. Redirect user to a specific Url
+
+
+➡️ Redirect to specific page
+
+useNavigate("/home"); // This will redirect to home page
+
+
+➡️ Redirect to previous page
+
+useNavigate(-1);
+
+
+➡️ Redirect to next page(in history)
+
+useNavigate(1);
+
+
+import { useNavigate } from 'react-router-dom';
+
+const Error = () => {
+  const navigate = useNavigate();
+  return (
+    <div>
+      <h1>Error 404! Page Not Found</h1>
+      <button onClick={() => navigate("/")} >Go to Home</button>
+    </div>
+  )
+}
