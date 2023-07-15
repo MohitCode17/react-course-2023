@@ -1,0 +1,15 @@
+🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟 USEREDUCER HOOK GUIDE 🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟🌟
+
+👉 The useReducer hook in React
+
+The useReducer hook is used for state management in react. Alternative to useState hook. It preferable for complex state management logic.
+
+Syntax:
+
+The useReducer Hook accepts two arguments.
+
+const [state, dispatch] = useReducer(<reducer>, <initialState>);
+
+The reducer function accepts two parameter:
+
+reducer(currentState, action);
